@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:18:13 by amya              #+#    #+#             */
-/*   Updated: 2021/03/12 14:53:52 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 19:11:31 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,25 @@ void	read_line_else_print_line(t_core *core)
 		selected_print(core);
 	else
 		print_line(core, 1);
+}
+
+void	debugstr(char *str, int nl)
+{
+	ft_putstr_fd("|",2);
+	ft_putstr_fd(str,2);
+	ft_putstr_fd("|",2);
+	if (nl)
+		ft_putendl_fd("",2);
+}
+
+void	debugnbr(int nbr, int nl,int fd)
+{
+	//ft_putstr_fd(tgetstr("cl", NULL),2);
+	ft_putstr_fd("|",fd);
+	ft_putnbr_fd(nbr,fd);
+	ft_putstr_fd("|",fd);
+	if (nl)
+		ft_putendl_fd("",fd);
 }
 
 void	selected_print(t_core *core)
@@ -35,8 +54,9 @@ void	selected_print(t_core *core)
 	while (core->line[i])
 	{
 		if ((i >= core->sel && i <= core->real_pos) ||
-		(i <= core->sel && i >= core->real_pos))
-			ft_putstr("\033[7m");
+		(i < core->sel && i > core->real_pos))
+			{
+				ft_putstr("\033[7m");}
 		else
 			ft_putstr(RESET);
 		ft_putchar(core->line[i]);

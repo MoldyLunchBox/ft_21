@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 12:06:41 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 12:24:12 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 17:45:24 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,26 @@ void	ctrl_d2(t_core *core)
 {
 	char	*new;
 	char	*tmp;
-	int		i;
+	char	*fre;
 	int		len;
-	int		t;
 
-	t = 0;
-	i = 0;
 	len = ft_strlen(core->line);
-	if (core->real_pos > 6 && core->real_pos < len - 1)
+	if (core->real_pos > core->pre_cmd - 1 && core->real_pos < len)
 	{
 		new = ft_strsub(core->line, 0, core->real_pos);
 		tmp = ft_strsub(core->line, core->real_pos +
 		1, len - core->real_pos + 1);
+		fre = core->line;
 		core->line = ft_strjoin(new, tmp);
+		free(fre);
+		free(new);
+		free(tmp);
 		core->del = 0;
 		core->move_curs_up = 1;
 	}
+	else
+		free_to_leave();
 	core->del = 0;
 	core->move_curs_up = 1;
 	print_line(core, 1);
 }
-
-void	ctrl_d(t_core *core)
-{
-	if (core->line[core->pre_cmd] == '\0')
-		free_to_leave();
-}
-

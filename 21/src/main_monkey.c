@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 13:26:13 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 12:44:31 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 17:40:41 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	unconfigure_term(void)
 int	enter_exit(t_core *core, char *fd)
 {
 	if (*((int *)fd) == ESC)
-		exit(1);
+		free_to_leave();
 	else if (*((int *)fd) == KEY_ENTER)
 	{
 		if (str_is_whitespace(core->line + ft_strlen(PRE_CMD), 1))
@@ -185,8 +185,6 @@ void	catch_signal(void)
 	int i;
 
 	i = 0;
-	while (++i <= 32)
-		signal(i, stop);
 	signal(SIGINT, tests);
 }
 

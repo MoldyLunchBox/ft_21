@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:34:53 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 11:42:53 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 17:21:17 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	editing_keys(t_core *core, char *fd)
 	else if (*((int *)fd) == CUT)
 		cut(core);
 	else if (*((int *)fd) == CTRL_D)
-		ctrl_d(core);
+		ctrl_d2(core);
 	else if (*((int *)fd) == KEY_DEL && core->sel < 0)
 		del_letter(core);
 }

@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 14:20:36 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 12:44:05 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 18:50:25 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,5 +216,7 @@ void	init_alt_jump_down(t_alt_jump_down *v, int real_pos);
 void	init_alt_jump_up(t_alt_jump_up *v, t_core *core);
 void	letter_joining(t_core *core, char **letter);
 void	readline_loop_init(char *fd, t_core *core);
+void	ctrl_d2(t_core *core);
+void	debugstr(char *str, int nl);
 
 #endif
