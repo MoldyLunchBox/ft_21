@@ -3,54 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   calcule.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:53:43 by amya              #+#    #+#             */
-/*   Updated: 2021/01/04 15:53:45 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 11:35:44 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/monkey_head.h"
 
-void	calc_displayed_lines(t_core *core )
+void	calc_displayed_lines(t_core *core)
 {
-	int i = 0;
-	int new_line =0;
-	while(core->line[i])
+	int i;
+	int new_line;
+
+	new_line = 0;
+	i = 0;
+	while (core->line[i])
 	{
-		if(core->line[i] == '\n' || (((new_line + 1) % (core->term.win.ws_col)) == 0 && i))
+		if (core->line[i] == '\n' || (((new_line + 1) %
+		(core->term.win.ws_col)) == 0 && i))
 		{
 			core->dl++;
 			new_line = -1;
 		}
 		i++;
-		new_line++;	
+		new_line++;
 	}
 }
+
 void	calc_position(t_core *core, int cmd_len)
 {
+	int	new_line;
+	int	check;
+	int	i;
 
-	int new_line;
-	int check;
-	int i;
-	
 	i = 0;
 	new_line = 0;
 	core->dl = 0;
 	calc_displayed_lines(core);
-	if(core->curs_v + core->dl + 1 > core->term.win.ws_row  )
-		core->pos_v = core->curs_v - (core->curs_v + core->dl +1 - core->term.win.ws_row);
+	if (core->curs_v + core->dl + 1 > core->term.win.ws_row)
+		core->pos_v = core->curs_v - (core->curs_v + core->dl +
+		1 - core->term.win.ws_row);
 	else
 		core->pos_v = core->curs_v;
-	while(core->line[i] && i < cmd_len)
+	while (core->line[i] && i < cmd_len)
 	{
-		if(core->line[i] == '\n' || (((new_line + 1) % (core->term.win.ws_col)) == 0 && i))
+		if (core->line[i] == '\n' || (((new_line + 1) %
+		(core->term.win.ws_col)) == 0 && i))
 		{
 			core->pos_v++;
 			new_line = -1;
 		}
 		i++;
-		new_line++;	
+		new_line++;
 	}
 	core->pos_h = new_line;
 }
@@ -60,13 +66,12 @@ void	tab_to_space(t_core *core)
 	int i;
 
 	i = 0;
-	while(core->line[i])
+	while (core->line[i])
 	{
 		if (core->line[i] == '\t')
 			core->line[i] = ' ';
 		i++;
 	}
-
 }
 
 void	get_cursor_position(t_core *core)
@@ -74,9 +79,9 @@ void	get_cursor_position(t_core *core)
 	int		column;
 	int		row;
 	char	buf;
+
 	column = 0;
 	row = 0;
-	
 	tputs("\e[6n", 0, ft_putchar_int);
 	while (read(0, &buf, 1) > 0 && buf != '[')
 		;
@@ -86,38 +91,31 @@ void	get_cursor_position(t_core *core)
 	while (read(0, &buf, 1) > 0 && buf != 'R')
 		if (ft_isdigit(buf))
 			column = (column * 10) + (buf - '0');
-	// ft_putnbrnl(row);
-	 //ft_putnbrnl(column);
 	core->curs_v = row - 1;
 	core->curs_h = column - 1;
-//	ft_putnbr((*core)->curs_column);
 }
-
 
 void	previous_end_line(t_core *core)
 {
 	int i;
 	int line;
 	int length;
-	
+
 	line = 0;
 	i = 0;
 	length = 0;
 	core->pos_v -= 1;
-	while(core->line[i])
+	while (core->line[i])
 	{
 		if (core->line[i] == '\n')
-			{
-				if (core->pos_v == line)
-					break ;
-				line += 1;
-				length = -1;
-			}
+		{
+			if (core->pos_v == line)
+				break ;
+			line += 1;
+			length = -1;
+		}
 		i++;
 		length++;
-		
 	}
-	
 	core->pos_h = length;
-
 }

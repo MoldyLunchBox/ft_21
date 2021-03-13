@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 13:11:24 by amya              #+#    #+#             */
-/*   Updated: 2021/02/28 18:57:37 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 12:47:23 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_core(t_core *core)
 	core->pos_h = 0;
 	core->pos_v = 0;
 	core->histo_search = 0;
-	core->total_lines =0;
+	core->total_lines = 0;
 	core->history = NULL;
 	core->start = 0;
 	core->real_pos = ft_strlen(core->line);
@@ -30,15 +30,16 @@ void	init_core(t_core *core)
 void	read_line_init(t_core *core)
 {
 	core->scroll = 0;
+	core->sel = -1;
 	g_core = core;
 	get_cursor_position(core);
 	if (core->line)
-	free(core->line);
+		free(core->line);
 	if (core->quote)
 		core->line = ft_strdup(DQUOTE_CMD);
 	else
 		core->line = ft_strdup(PRE_CMD);
-		core->real_pos = ft_strlen(core->line);
+	core->real_pos = ft_strlen(core->line);
 	print_line(core, 1);
 	core->nbr_scrolls = 0;
 }
@@ -64,7 +65,6 @@ int		init_term2(t_core *core)
 	term.win = w;
 	core->term = term;
 	tputs(tgetstr("ti", NULL), 2, fd_putchar);
-
 	tputs(tgetstr("ve", NULL), 2, fd_putchar);
 	return (1);
 }

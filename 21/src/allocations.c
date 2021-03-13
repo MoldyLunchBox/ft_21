@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:06:56 by amya              #+#    #+#             */
-/*   Updated: 2021/02/28 18:30:20 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 11:31:34 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_history	*add_node(t_history *head, char *line)
 	return (head);
 }
 
-void	select_line(t_history *head, int index)
+void		select_line(t_history *head, int index)
 {
 	t_history *history;
 

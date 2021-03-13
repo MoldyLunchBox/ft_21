@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 13:26:13 by amya              #+#    #+#             */
-/*   Updated: 2021/03/12 14:48:05 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 12:44:31 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,31 +92,30 @@ void	real_line_add_letter(t_core *core, char *fd)
 char	*readline(t_core *core)
 {
 	char	fd[5];
-	int		buf;
-	int		ret;
 
 	read_line_init(core);
 	while (1)
 	{
-		core->move_curs_up = 0;
-		ft_bzero(fd, 5);
+		readline_loop_init(fd, core);
 		while (read(0, fd, 4) > 0 && is_not_button(fd) && core->sel < 0)
 			real_line_add_letter(core, fd);
-		if ((ret = is_a_movement_key(core, fd)))
+		if ((is_a_movement_key(core, fd)))
 			movement_key(core, fd);
 		else if (is_an_editing_key(core, fd))
 			editing_keys(core, fd);
 		else if (is_enter_exit_key(core, fd))
 		{
 			if (enter_exit(core, fd))
-				return (ft_strsub(core->line, ft_strlen(PRE_CMD), ft_strlen(core->line) - ft_strlen(PRE_CMD)));
+				return (ft_strsub(core->line, ft_strlen(PRE_CMD),
+				ft_strlen(core->line) - ft_strlen(PRE_CMD)));
 			else
 				return (NULL);
 		}
 		else
 			read_line_else_print_line(core);
 	}
-	return (ft_strsub(core->line, ft_strlen(PRE_CMD), ft_strlen(core->line) - ft_strlen(PRE_CMD)));
+	return (ft_strsub(core->line, ft_strlen(PRE_CMD),
+	ft_strlen(core->line) - ft_strlen(PRE_CMD)));
 }
 
 void		free_struct(t_history *core)
@@ -166,16 +165,16 @@ void		continu(int sig)
 void		tests(int sig)
 {
 	(void)sig;
-	print_line(g_core,1);
+	print_line(g_core, 1);
 	free(g_core->line);
 	g_core->line = ft_strdup(PRE_CMD);
 	g_core->real_pos = ft_strlen(g_core->line);
-	tputs(tgoto(tgetstr("cm", NULL), 0, g_core->curs_v+g_core->dl), 0, fd_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), 0, g_core->curs_v +
+	g_core->dl), 0, fd_putchar);
 	ft_putstr("\n");
 	read_line_init(g_core);
-	
-
 }
+
 void	stop(int sig)
 {
 	(void)sig;
@@ -245,7 +244,7 @@ int		check_quotes(char *str)
 		g_core->quote = 1;
 	else
 		g_core->quote = 0;
-	return(balance);
+	return (balance);
 }
 
 int		main(int ac, char **ar)

@@ -6,27 +6,11 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 13:13:44 by amya              #+#    #+#             */
-/*   Updated: 2021/02/28 18:57:06 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 12:03:54 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/monkey_head.h"
-
-int		is_a_movement_key(t_core *core, char *fd)
-{
-	int curs_v;
-
-	curs_v = core->curs_v;
-	if(core->curs_v + core->dl + 1 > core->term.win.ws_row)
-		curs_v = core->curs_v - (core->curs_v + core->dl + 1 - core->term.win.ws_row);
-	
-	if ((*((int *)fd) == KEY_DOWN && core->sel < 0) ||
-	(*((int *)fd) == KEY_UP && core->sel < 0)
-	|| (*((int *)fd) == KEY_LEFT) || (*((int *)fd) == KEY_RIGHT) ||
-	(*((int *)fd) == ALT_UP && core->pos_v > curs_v) || (*((int *)fd) == ALT_DOWN))
-		return (1);
-	return (0);
-}
 
 void	movement_key(t_core *core, char *fd)
 {
@@ -50,7 +34,8 @@ void	move_curs_left(t_core *core)
 
 	curs_v = core->curs_v;
 	if (core->curs_v + core->dl + 1 > core->term.win.ws_row)
-		curs_v = core->curs_v - (core->curs_v + core->dl + 1 - core->term.win.ws_row);
+		curs_v = core->curs_v - (core->curs_v + core->dl +
+		1 - core->term.win.ws_row);
 	if (core->real_pos > core->pre_cmd)
 	{
 		if (core->pos_h > 0)
@@ -74,7 +59,8 @@ void	move_curs_right(t_core *core)
 
 	curs_v = core->curs_v;
 	if (core->curs_v + core->dl + 1 > core->term.win.ws_row)
-		curs_v = core->curs_v - (core->curs_v + core->dl + 1 - core->term.win.ws_row);
+		curs_v = core->curs_v - (core->curs_v + core->dl + 1 -
+		core->term.win.ws_row);
 	if (core->real_pos < ft_strlen(core->line))
 	{
 		calc_position(core, core->real_pos + 1);
@@ -91,66 +77,54 @@ void	move_curs_right(t_core *core)
 
 void	alt_jump_up(t_core *core)
 {
-	int i;
-	int pos_v;
-	int len;
+	t_alt_jump_up	v;
 
-	len = 0;
-	int curs_v;
-	curs_v = core->curs_v;
-	if (core->curs_v + core->dl +1 > core->term.win.ws_row  )
-		curs_v = core->curs_v - (core->curs_v + core->dl +1 - core->term.win.ws_row);
-	pos_v = curs_v;
-	i = 0;
+	init_alt_jump_up(&v, core);
 	if (core->pos_v)
 	{
 		core->pos_v--;
-		while (core->line[i])
+		while (core->line[++v.i])
 		{
-			if (pos_v == core->pos_v && core->pos_h == len)
+			if (v.pos_v == core->pos_v && core->pos_h == v.len)
 				break ;
-			if ((len && (len + 1) % core->term.win.ws_col == 0) || core->line[i] == '\n')
+			if ((v.len && (v.len + 1) % core->term.win.ws_col == 0)
+			|| core->line[v.i] == '\n')
 			{
-				if (pos_v == core->pos_v)
+				if (v.pos_v == core->pos_v)
 					break ;
-				pos_v++;
-				len = -1;
+				v.pos_v++;
+				v.len = -1;
 			}
-			len++;
-			i++;
+			v.len++;
 		}
 	}
-	alt_jump_up_print(core, i, len);
+	alt_jump_up_print(core, v.i, v.len);
 }
-
 
 void	alt_jump_down(t_core *core)
 {
-	int n;
-	int v;
-	int line;
-	int i = 0;
-	int curs_v;
+	t_alt_jump_down	v;
 
-	curs_v = core->curs_v;
-	if(core->curs_v + core->dl +1 > core->term.win.ws_row)
-		curs_v = core->curs_v - (core->curs_v + core->dl +1 - core->term.win.ws_row);
-	v = curs_v;
-	n = core->real_pos;
-	line = 0;
-	while(core->line[i])
+	v.i = -1;
+	v.curs_v = core->curs_v;
+	if (core->curs_v + core->dl + 1 > core->term.win.ws_row)
+		v.curs_v = core->curs_v - (core->curs_v + core->dl
+		+ 1 - core->term.win.ws_row);
+	init_alt_jump_down(&v, core->real_pos);
+	while (core->line[++v.i])
 	{
-		if ((v == core->pos_v+1 && line == core->pos_h) || (v == core->pos_v+1 && core->line[i] == '\n'))
+		if ((v.v == core->pos_v + 1 && v.line == core->pos_h)
+		|| (v.v == core->pos_v + 1 && core->line[v.i] == '\n'))
 			break ;
-		if(core->line[i] == '\n' || (((line + 1) % (core->term.win.ws_col)) == 0 && i))
-		 {
-			 v++;
-			line = -1;
+		if (core->line[v.i] == '\n' || (((v.line + 1) %
+		(core->term.win.ws_col)) == 0 && v.i))
+		{
+			v.v++;
+			v.line = -1;
 		}
-		i++;
-		line++;	
+		v.line++;
 	}
-	core->pos_h = line;
-	core->real_pos = i;
-	print_line(core,1);
+	core->pos_h = v.line;
+	core->real_pos = v.i;
+	print_line(core, 1);
 }

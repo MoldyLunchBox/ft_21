@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monkey_head.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amya <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 14:20:36 by amya              #+#    #+#             */
-/*   Updated: 2020/03/12 14:20:37 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/13 12:44:05 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@
 # define RESET "\033[00m"
 # define RED "\033[31m"
 
+
 enum
 {
-	ERR_NOTERM,
-	ERR_TERMDB,
-	ERR_TNOTF,
-	ERR_USAGE,
+        ERR_NOTERM,
+        ERR_TERMDB,
+        ERR_TNOTF,
+        ERR_USAGE,
 };
-
 typedef struct	s_t
 {
 	struct winsize win;
@@ -99,14 +99,41 @@ typedef	struct	s_core
 	int		argc;
 	int		fit;
 }				t_core;
+typedef struct	s_alt_jump_down
+{
+	int n;
+	int v;
+	int line;
+	int i;
+	int curs_v;
+}				t_alt_jump_down;
+
+typedef struct	s_alt_jump_up
+{
+	int i;
+	int pos_v;
+	int len;
+	int curs_v;
+}				t_alt_jump_up;
+
+typedef struct	s_paste
+{
+	int		i;
+	char	*new;
+	int		rest;
+	int		j;
+}				t_paste;
+
+typedef struct	s_readline
+{
+	char	fd[5];
+	int		buf;
+}				t_readline;
 
 t_core			*g_core;
 void	print_line(t_core *core, int calc_pos);
 t_history			*add_node(t_history *head, char *line);
 int				fd_putchar(int c);
-void	debugstr(char *str, int nl);
-
-void	debugnbr(int nbr, int nl,int fd);
 int				error_manager(int error);
 int				init_term(t_core *core);
 void			free_struct(t_history *core);
@@ -181,55 +208,13 @@ int		is_not_button(char *fd);
  //confitions2
 int		is_an_editing_key(t_core *core, char *fd);
 int		is_enter_exit_key(t_core *core, char *fd);
-
-int	ft_strsearch(char const *s1, char const *s2);
-
-
+int		ft_strsearch(char const *s1, char const *s2);
 void	cut(t_core *core);
 void	ft_cut(t_core *core, int start, int end);
 int		ft_putchar_int(int c);
+void	init_alt_jump_down(t_alt_jump_down *v, int real_pos);
+void	init_alt_jump_up(t_alt_jump_up *v, t_core *core);
+void	letter_joining(t_core *core, char **letter);
+void	readline_loop_init(char *fd, t_core *core);
+
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// //  if (core->pos_v == 3)
-// 			//  	{ft_putstr_fd(tgetstr("cl", NULL), 2);
-// 			//  ft_putnbr_fd(i,2);
-// 			//  ft_putstr_fd("  ",2);
-// 			//  ft_putnbr_fd(core->term.win.ws_col - 1, 2);}
-
-
-
-// if (1)
-// 			{ft_putstr_fd(tgetstr("cl", NULL), 2);
-// 				ft_putstr_fd("  ",2);
-// 			 ft_putnbr_fd(new_line, 2);
-// 			ft_putstr("\n");}
