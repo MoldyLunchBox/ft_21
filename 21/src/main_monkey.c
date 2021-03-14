@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 13:26:13 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 17:40:41 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/14 16:34:18 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	free_to_leave(void)
 	if (g_core->line)
 		free(g_core->line);
 	if (g_core->copy)
-		free(g_core->line);
+		free(g_core->copy);
 	if (g_core->history)
 		free_struct(g_core->history);
 	exit(0);

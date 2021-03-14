@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 13:13:44 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 19:59:11 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/14 16:27:33 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ void	alt_jump_down(t_core *core)
 		debugstr("beofre",1);
 		ft_putnbr_fd(v.curs_v,2);
 	if (core->sel >= 0)
-		selected_print(core);
+	{print_line(core, 1);
+		selected_print(core);}
 	else
 		print_line(core, 1);
 			debugstr("after",1);

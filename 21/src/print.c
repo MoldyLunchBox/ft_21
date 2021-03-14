@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:18:13 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 19:11:31 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/14 19:36:59 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	selected_print(t_core *core)
 	{
 		if ((i >= core->sel && i <= core->real_pos) ||
 		(i < core->sel && i > core->real_pos))
-			{
-				ft_putstr("\033[7m");}
+			ft_putstr("\033[7m");
 		else
 			ft_putstr(RESET);
 		ft_putchar(core->line[i]);
@@ -107,9 +106,13 @@ void	print_line(t_core *core, int calc_pos)
 			test = core->curs_v + core->dl - core->term.win.ws_row - core->nbr_scrolls;
 			while (i <= test && core->scroll)
 			{
+				sleep(1);
 				tputs(tgoto(tgetstr("cm", NULL), core->pos_h, core->term.win.ws_row - 1), 0, fd_putchar);
+				sleep(1);
 				ft_putstr(tgetstr("sf", NULL));
+				sleep(1);
 				i++;
+				debugstr("OPS",1);
 				core->nbr_scrolls++;
 			}
 		}
@@ -118,6 +121,9 @@ void	print_line(t_core *core, int calc_pos)
 	ft_putstr(tgetstr("cd", NULL));
 	ft_putstr(core->line);
 	tputs(tgoto(tgetstr("cm", NULL), core->pos_h, core->pos_v), 0, fd_putchar);
+	debugstr("ow", 1);
+	// debugnbr(core->pos_h, 1, 2);
+	// debugstr("<", 1);
 	if (core->move_curs_up)
 	{
 		core->curs_v = curs_v;

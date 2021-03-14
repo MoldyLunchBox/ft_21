@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 13:11:24 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 12:47:23 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/14 18:59:19 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int		init_term2(t_core *core)
 	ioctl(0, TIOCGWINSZ, &w);
 	term.win = w;
 	core->term = term;
-	tputs(tgetstr("ti", NULL), 2, fd_putchar);
 	tputs(tgetstr("ve", NULL), 2, fd_putchar);
 	return (1);
 }
