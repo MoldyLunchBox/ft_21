@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 13:26:13 by amya              #+#    #+#             */
-/*   Updated: 2021/03/14 16:34:18 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/15 17:23:19 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,7 @@ void	ft_cut(t_core *core, int start, int end)
 
 	i = 0;
 	new = ft_strnew(ft_strlen(core->line) - (end - start));
-	while (core->line[i] && i < start)
-	{
-		new[i] = core->line[i];
-		i++;
-	}
-	j = i;
-	i = end;
-	while (core->line[i])
-	{
-		new[j] = core->line[i + 1];
-		j++;
-		i++;
-	}
+	
 	free(core->line);
 	core->line = new;
 }

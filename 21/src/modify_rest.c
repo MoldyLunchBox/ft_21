@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 12:06:41 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 17:45:24 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/15 14:17:02 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ctrl_d2(t_core *core)
 		core->del = 0;
 		core->move_curs_up = 1;
 	}
-	else
+	else if (core->pre_cmd == len)
 		free_to_leave();
 	core->del = 0;
 	core->move_curs_up = 1;

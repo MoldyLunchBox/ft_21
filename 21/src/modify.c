@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:59:16 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 12:24:07 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/15 17:37:13 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ void	del_letter(t_core *core)
 	print_line(core, 1);
 }
 
+void	partial_print_line(t_core *core)
+{
+	int i;
+
+	i = core->real_pos;
+	tputs(tgoto(tgetstr("cm", NULL), core->pos_h, core->pos_v), 0, fd_putchar);
+	ft_putstr(tgetstr("cd", NULL));
+	while (core->line[i])
+	{
+		ft_putchar(core->line[i]);
+		i++;
+	}
+}
+
 void	add_letter(t_core *core, char *letter)
 {
 	char	*start;
@@ -63,30 +77,20 @@ void	add_letter(t_core *core, char *letter)
 
 void	cut(t_core *core)
 {
-	if (core->sel >= 0)
-	{
-		if (core->sel >= core->real_pos)
-		{
-			core->copy = ft_strsub(core->line, core->real_pos,
-			(core->sel - core->real_pos) + 1);
-			ft_cut(core, core->real_pos, core->sel);
-		}
-		else
-		{
-			core->copy = ft_strsub(core->line, core->sel,
-			(core->real_pos - core->sel + 1));
-			ft_cut(core, core->sel, core->real_pos);
-			core->real_pos = core->real_pos - (core->real_pos - core->sel);
-		}
-	}
-	core->sel = -1;
+	char	*new;
+
+	core->copy = ft_strsub(core->line, core->real_pos,
+		(ft_strlen(core->line) - core->real_pos));
+	new = ft_strsub(core->line, 0, core->real_pos);
+	free(core->line);
+	core->line = new;
 	core->del = 0;
 	if (core->curs_v + core->dl + 1 > core->term.win.ws_row && !core->del)
 		core->curs_v = core->curs_v - (core->curs_v + core->dl
 		+ 1 - core->term.win.ws_row);
 	core->del = 1;
 	core->nbr_scrolls = 0;
-	print_line(core, 1);
+	partial_print_line(core);
 }
 
 void	paste(t_core *core)
@@ -120,19 +124,14 @@ void	paste(t_core *core)
 
 void	copy_paste(t_core *core, int choice)
 {
-	if (core->sel >= 0 && choice == 1)
+	if (choice == 1)
 	{
 		if (core->copy)
 			free(core->copy);
-		if (core->sel >= core->real_pos)
-			core->copy = ft_strsub(core->line, core->real_pos,
-			(core->sel - core->real_pos) + 1);
-		else
-			core->copy = ft_strsub(core->line, core->sel,
-			(core->real_pos - core->sel) + 1);
+		core->copy = ft_strsub(core->line, core->real_pos,
+		ft_strlen(core->line) - core->real_pos);
 	}
-	core->sel = -1;
-	if (core->sel == -1 && choice == 2)
+	if (choice == 2)
 	{
 		if (core->copy)
 		{

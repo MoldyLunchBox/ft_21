@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:18:13 by amya              #+#    #+#             */
-/*   Updated: 2021/03/14 19:36:59 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/17 15:20:29 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	selected_print(t_core *core)
 		1 - core->term.win.ws_row);
 	tputs(tgoto(tgetstr("cm", NULL), 0, curs_v), 0, fd_putchar);
 	ft_putstr(tgetstr("cd", NULL));
+	if (curs_v < 0)
+		ft_putendl("");
 	i = 0;
 	while (core->line[i])
 	{
@@ -84,7 +86,6 @@ void	alt_jump_up_print(t_core *core, int position, int len)
 		print_line(core, 1);
 	}
 }
-
 void	print_line(t_core *core, int calc_pos)
 {
 	int curs_v;
@@ -102,23 +103,34 @@ void	print_line(t_core *core, int calc_pos)
 		pos_v = core->pos_v;
 		if (core->curs_v + core->dl + 1 > core->term.win.ws_row && !core->del)
 		{
+				debugstr("------------------->",1);
 			curs_v = core->curs_v - (core->curs_v + core->dl + 1 - core->term.win.ws_row);
 			test = core->curs_v + core->dl - core->term.win.ws_row - core->nbr_scrolls;
 			while (i <= test && core->scroll)
 			{
-				sleep(1);
 				tputs(tgoto(tgetstr("cm", NULL), core->pos_h, core->term.win.ws_row - 1), 0, fd_putchar);
-				sleep(1);
 				ft_putstr(tgetstr("sf", NULL));
-				sleep(1);
 				i++;
-				debugstr("OPS",1);
 				core->nbr_scrolls++;
 			}
 		}
 	}
+	// debugnbr(curs_v,1,2);
+
+	if (core->out_buf < 0)
+		curs_v = -1;
+	if (curs_v < 0)
+		curs_v = -1;
 	tputs(tgoto(tgetstr("cm", NULL), 0, curs_v), 0, fd_putchar);
 	ft_putstr(tgetstr("cd", NULL));
+	if (curs_v < 0)
+	{
+		core->del = 0;
+	core->move_curs_up = 1;
+		core->out_buf = curs_v;
+		if (core->dl+1 <= core->term.win.ws_row)
+		core->pos_v++;
+	}
 	ft_putstr(core->line);
 	tputs(tgoto(tgetstr("cm", NULL), core->pos_h, core->pos_v), 0, fd_putchar);
 	debugstr("ow", 1);
@@ -130,6 +142,7 @@ void	print_line(t_core *core, int calc_pos)
 		core->nbr_scrolls = 0;
 	}
 }
+
 
 int		error_manager(int error)
 {

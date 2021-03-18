@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 14:20:36 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 18:50:25 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/15 12:13:14 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef	struct	s_core
 	int		quote;
 	int		argc;
 	int		fit;
+	int 	out_buf;
 }				t_core;
 typedef struct	s_alt_jump_down
 {
@@ -218,5 +219,6 @@ void	letter_joining(t_core *core, char **letter);
 void	readline_loop_init(char *fd, t_core *core);
 void	ctrl_d2(t_core *core);
 void	debugstr(char *str, int nl);
+void	debugnbr(int nbr, int nl,int fd);
 
 #endif

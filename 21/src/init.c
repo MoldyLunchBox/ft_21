@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 13:11:24 by amya              #+#    #+#             */
-/*   Updated: 2021/03/14 18:59:19 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/15 16:33:21 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,12 @@ void	read_line_init(t_core *core)
 {
 	core->scroll = 0;
 	core->sel = -1;
+
+	core->out_buf = 0;
 	g_core = core;
 	get_cursor_position(core);
+	debugnbr(core->curs_v, 1, 2);
+	core->pos_v = core->curs_v;
 	if (core->line)
 		free(core->line);
 	if (core->quote)

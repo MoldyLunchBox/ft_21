@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 13:13:44 by amya              #+#    #+#             */
-/*   Updated: 2021/03/14 16:27:33 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/16 17:50:11 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,7 @@ void	move_curs_left(t_core *core)
 	}
 	tputs(tgoto(tgetstr("cm", NULL), 0, curs_v), 0, fd_putchar);
 	ft_putstr(tgetstr("cd", NULL));
-	if (core->sel >= 0)
-		selected_print(core);
-	else
-		ft_putstr(core->line);
-	tputs(tgoto(tgetstr("cm", NULL), core->pos_h, core->pos_v), 0, fd_putchar);
+	print_line(core, 1);
 }
 
 void	move_curs_right(t_core *core)
@@ -68,11 +64,7 @@ void	move_curs_right(t_core *core)
 	}
 	tputs(tgoto(tgetstr("cm", NULL), 0, curs_v), 0, fd_putchar);
 	ft_putstr(tgetstr("cd", NULL));
-	if (core->sel >= 0)
-		selected_print(core);
-	else
-		ft_putstr(core->line);
-	tputs(tgoto(tgetstr("cm", NULL), core->pos_h, core->pos_v), 0, fd_putchar);
+	print_line(core, 1);
 }
 
 void	alt_jump_up(t_core *core)
