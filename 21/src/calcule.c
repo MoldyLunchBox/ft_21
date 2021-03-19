@@ -41,8 +41,6 @@ void	calc_position(t_core *core, int cmd_len)
 
 	i = 0;
 	new_line = 0;
-	debugnbr(core->curs_v,1,2);
-	
 	calc_displayed_lines(core);
 	if (core->curs_v + core->dl + 1 > core->term.win.ws_row)
 		core->pos_v = core->curs_v - (core->curs_v + core->dl +
@@ -61,8 +59,6 @@ void	calc_position(t_core *core, int cmd_len)
 		new_line++;
 	}
 	core->pos_h = new_line;
-	debugnbr(core->curs_v,1,2);
-
 }
 
 void	tab_to_space(t_core *core)

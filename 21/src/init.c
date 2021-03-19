@@ -31,7 +31,7 @@ void	read_line_init(t_core *core)
 {
 	core->scroll = 0;
 	core->sel = -1;
-
+	core->space_added = 0;
 	core->out_buf = 0;
 	g_core = core;
 	get_cursor_position(core);

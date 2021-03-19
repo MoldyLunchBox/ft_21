@@ -99,6 +99,7 @@ typedef	struct	s_core
 	int		argc;
 	int		fit;
 	int 	out_buf;
+	int		space_added;
 }				t_core;
 typedef struct	s_alt_jump_down
 {

@@ -12,6 +12,15 @@
 
 #include "../includes/monkey_head.h"
 
+void	append_space(t_core *core)
+{
+	char *tmp;
+
+	tmp = core->line;
+	core->line = ft_strjoin(core->line, " ");
+	free(tmp);
+}
+
 void	del_letter(t_core *core)
 {
 	char	*new;
@@ -21,6 +30,11 @@ void	del_letter(t_core *core)
 
 	i = 0;
 	len = ft_strlen(core->line);
+	if (len % core->term.win.ws_col == 0)
+		{
+			append_space(core);
+			core->space_added = 1;
+		}
 	if (core->real_pos > ft_strlen(PRE_CMD))
 	{
 		core->real_pos--;

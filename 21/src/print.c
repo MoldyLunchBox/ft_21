@@ -86,6 +86,13 @@ void	alt_jump_up_print(t_core *core, int position, int len)
 		print_line(core, 1);
 	}
 }
+
+void	delet_space(t_core *core)
+{
+	core->line[ft_strlen(core->line) - 1] = 0;
+	core->space_added = 0;
+}
+
 void	print_line(t_core *core, int calc_pos)
 {
 	int curs_v;
@@ -97,6 +104,7 @@ void	print_line(t_core *core, int calc_pos)
 	test = 100;
 	pos_v = core->pos_v;
 	curs_v = core->curs_v;
+	debugnbr(core->curs_v, 1, 2);
 	if (calc_pos)
 	{
 		calc_position(core, core->real_pos);
@@ -115,7 +123,9 @@ void	print_line(t_core *core, int calc_pos)
 			}
 		}
 	}
-	// debugnbr(curs_v,1,2);
+	debugnbr(core->curs_v, 1, 2);
+
+	debugnbr(curs_v,1,2);
 
 	if (core->out_buf < 0)
 		curs_v = -1;
@@ -133,14 +143,16 @@ void	print_line(t_core *core, int calc_pos)
 	}
 	ft_putstr(core->line);
 	tputs(tgoto(tgetstr("cm", NULL), core->pos_h, core->pos_v), 0, fd_putchar);
-	debugstr("ow", 1);
-	// debugnbr(core->pos_h, 1, 2);
 	// debugstr("<", 1);
 	if (core->move_curs_up)
 	{
 		core->curs_v = curs_v;
 		core->nbr_scrolls = 0;
 	}
+	if (core->space_added)
+		delet_space(core);
+	debugnbr(core->curs_v, 1, 2);
+	debugstr("ow", 1);
 }
 
 
