@@ -6,30 +6,11 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:18:13 by amya              #+#    #+#             */
-/*   Updated: 2021/03/20 14:37:22 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/20 15:02:11 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/monkey_head.h"
-
-void	debugstr(char *str, int nl)
-{
-	ft_putstr_fd("|",2);
-	ft_putstr_fd(str,2);
-	ft_putstr_fd("|",2);
-	if (nl)
-		ft_putendl_fd("",2);
-}
-
-void	debugnbr(int nbr, int nl,int fd)
-{
-	//ft_putstr_fd(tgetstr("cl", NULL),2);
-	ft_putstr_fd("|",fd);
-	ft_putnbr_fd(nbr,fd);
-	ft_putstr_fd("|",fd);
-	if (nl)
-		ft_putendl_fd("",fd);
-}
 
 void	alt_jump_up_print(t_core *core, int position, int len)
 {
@@ -141,5 +122,3 @@ int		error_manager(int error)
 	}
 	return (ret);
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 14:20:36 by amya              #+#    #+#             */
-/*   Updated: 2021/03/20 14:51:15 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/20 15:00:29 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,5 +227,8 @@ void	append_space(t_core *core);
 int		fd_putchar(int c);
 void	partial_print_line(t_core *core);
 int		ft_putchar_int(int c);
-
+int		check_quotes(char *str);
+void	handle_quotes(char c, int *balance);
+void	free_struct(t_history *core);
+void	free_to_leave(void);
 #endif

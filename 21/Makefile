@@ -1,6 +1,6 @@
 NAME= ft_select
 INC = includes/
-OBJ =  src/main_monkey.o src/init_vars.o src/modify_rest.o src/history.o src/conditions.o src/calcule.o src/print_rest.o src/condition_rest.o src/modify.o src/free_delet.o src/print.o src/allocations.o src/init.o src/key_move.o src/signal.o
+OBJ =  src/main_monkey.o src/free_exit.o src/quotes.o src/init_vars.o src/modify_rest.o src/history.o src/conditions.o src/calcule.o src/print_rest.o src/condition_rest.o src/modify.o src/free_delet.o src/print.o src/allocations.o src/init.o src/key_move.o src/signal.o
 LIB = libft/libft.a
 FLAGS =  -g
 all: $(LIB) $(NAME)
