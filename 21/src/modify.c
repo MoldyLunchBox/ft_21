@@ -6,35 +6,24 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:59:16 by amya              #+#    #+#             */
-/*   Updated: 2021/03/15 17:37:13 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/19 19:55:57 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/monkey_head.h"
 
-void	append_space(t_core *core)
-{
-	char *tmp;
-
-	tmp = core->line;
-	core->line = ft_strjoin(core->line, " ");
-	free(tmp);
-}
-
 void	del_letter(t_core *core)
 {
 	char	*new;
 	char	*tmp;
-	int		i;
 	int		len;
 
-	i = 0;
 	len = ft_strlen(core->line);
 	if (len % core->term.win.ws_col == 0)
-		{
-			append_space(core);
-			core->space_added = 1;
-		}
+	{
+		append_space(core);
+		core->space_added = 1;
+	}
 	if (core->real_pos > ft_strlen(PRE_CMD))
 	{
 		core->real_pos--;
@@ -50,20 +39,6 @@ void	del_letter(t_core *core)
 	core->del = 0;
 	core->move_curs_up = 1;
 	print_line(core, 1);
-}
-
-void	partial_print_line(t_core *core)
-{
-	int i;
-
-	i = core->real_pos;
-	tputs(tgoto(tgetstr("cm", NULL), core->pos_h, core->pos_v), 0, fd_putchar);
-	ft_putstr(tgetstr("cd", NULL));
-	while (core->line[i])
-	{
-		ft_putchar(core->line[i]);
-		i++;
-	}
 }
 
 void	add_letter(t_core *core, char *letter)

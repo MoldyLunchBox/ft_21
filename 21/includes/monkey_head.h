@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 14:20:36 by amya              #+#    #+#             */
-/*   Updated: 2021/03/15 12:13:14 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/20 14:51:15 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@
 #define KEY_DEL 2117294875
 #define KEY_ENTER 10
 #define KEY_BACKSPACE 127
+#define HOME 4741915
+#define END 4610843
 #define ESC 27
 #define EXIT 45
-#define SELECT 5263131
 #define COPY 5328667
 #define PASTE 5394203
 #define CUT 5459739
@@ -87,7 +88,6 @@ typedef	struct	s_core
 	char	*copy;
 	int		var;
 	int		pre_cmd;
-	int		sel;
 	int		start;
 	int		pos_h;
 	int		pos_v;
@@ -220,6 +220,12 @@ void	letter_joining(t_core *core, char **letter);
 void	readline_loop_init(char *fd, t_core *core);
 void	ctrl_d2(t_core *core);
 void	debugstr(char *str, int nl);
-void	debugnbr(int nbr, int nl,int fd);
+void	debugnbr(int nbr, int nl, int fd);
+void	go_to_end(t_core *core);
+void	go_home(t_core *core);
+void	append_space(t_core *core);
+int		fd_putchar(int c);
+void	partial_print_line(t_core *core);
+int		ft_putchar_int(int c);
 
 #endif

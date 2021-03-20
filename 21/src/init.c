@@ -22,7 +22,6 @@ void	init_core(t_core *core)
 	core->history = NULL;
 	core->start = 0;
 	core->real_pos = ft_strlen(core->line);
-	core->sel = -1;
 	core->copy = NULL;
 	core->pre_cmd = ft_strlen(core->line);
 }
@@ -30,12 +29,10 @@ void	init_core(t_core *core)
 void	read_line_init(t_core *core)
 {
 	core->scroll = 0;
-	core->sel = -1;
 	core->space_added = 0;
 	core->out_buf = 0;
 	g_core = core;
 	get_cursor_position(core);
-	debugnbr(core->curs_v, 1, 2);
 	core->pos_v = core->curs_v;
 	if (core->line)
 		free(core->line);

@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:34:53 by amya              #+#    #+#             */
-/*   Updated: 2021/03/13 17:21:17 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/19 19:53:11 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int		is_not_button(char *fd)
 	if (*((int *)fd) == COPY || *((int *)fd) == ALT_UP ||
 			*((int *)fd) == ALT_DOWN || *((int *)fd) == CUT ||
 			*((int *)fd) == PASTE || *((int *)fd) == EXIT
-			|| *((int *)fd) == SELECT
 			|| *((int *)fd) == ESC || *((int *)fd) == KEY_UP
 			|| *((int *)fd) == KEY_DOWN ||
 			*((int *)fd) == KEY_LEFT || *((int *)fd) == KEY_RIGHT ||
@@ -70,15 +69,7 @@ int		is_not_button(char *fd)
 
 void	editing_keys(t_core *core, char *fd)
 {
-	if (*((int *)fd) == SELECT)
-	{
-		if (core->sel == -1)
-			core->sel = core->real_pos;
-		else
-			core->sel = -1;
-		print_line(core, 1);
-	}
-	else if (*((int *)fd) == COPY)
+	if (*((int *)fd) == COPY)
 		copy_paste(core, 1);
 	else if (*((int *)fd) == PASTE)
 		copy_paste(core, 2);
@@ -86,6 +77,6 @@ void	editing_keys(t_core *core, char *fd)
 		cut(core);
 	else if (*((int *)fd) == CTRL_D)
 		ctrl_d2(core);
-	else if (*((int *)fd) == KEY_DEL && core->sel < 0)
+	else if (*((int *)fd) == KEY_DEL)
 		del_letter(core);
 }

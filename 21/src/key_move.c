@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 13:13:44 by amya              #+#    #+#             */
-/*   Updated: 2021/03/16 17:50:11 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/19 19:53:26 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	movement_key(t_core *core, char *fd)
 {
-	if (*((int *)fd) == KEY_UP && core->sel < 0)
+	if (*((int *)fd) == KEY_UP)
 		search_up(core);
-	else if (*((int *)fd) == KEY_DOWN && core->sel < 0)
+	else if (*((int *)fd) == KEY_DOWN)
 		search_down(core);
 	else if (*((int *)fd) == KEY_LEFT)
 		move_curs_left(core);
@@ -26,6 +26,10 @@ void	movement_key(t_core *core, char *fd)
 		alt_jump_up(core);
 	else if (*((int *)fd) == ALT_DOWN)
 		alt_jump_down(core);
+	else if (*((int *)fd) == HOME)
+		go_home(core);
+	else if (*((int *)fd) == END)
+		go_to_end(core);
 }
 
 void	move_curs_left(t_core *core)
@@ -118,14 +122,5 @@ void	alt_jump_down(t_core *core)
 	}
 	core->pos_h = v.line;
 	core->real_pos = v.i;
-		debugstr("beofre",1);
-		ft_putnbr_fd(v.curs_v,2);
-	if (core->sel >= 0)
-	{print_line(core, 1);
-		selected_print(core);}
-	else
-		print_line(core, 1);
-			debugstr("after",1);
-		ft_putnbr_fd(v.curs_v,2);
-
+	print_line(core, 1);
 }

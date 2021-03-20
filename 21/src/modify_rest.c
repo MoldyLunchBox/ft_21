@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 12:06:41 by amya              #+#    #+#             */
-/*   Updated: 2021/03/15 14:17:02 by amya             ###   ########.fr       */
+/*   Updated: 2021/03/19 19:57:02 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,25 @@ void	ctrl_d2(t_core *core)
 	core->del = 0;
 	core->move_curs_up = 1;
 	print_line(core, 1);
+}
+
+void	go_home(t_core *core)
+{
+	core->real_pos = core->pre_cmd;
+	print_line(core, 1);
+}
+
+void	go_to_end(t_core *core)
+{
+	core->real_pos = ft_strlen(core->line);
+	print_line(core, 1);
+}
+
+void	append_space(t_core *core)
+{
+	char *tmp;
+
+	tmp = core->line;
+	core->line = ft_strjoin(core->line, " ");
+	free(tmp);
 }
