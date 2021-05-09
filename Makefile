@@ -21,6 +21,7 @@ OBJ =  $(RDL)main_monkey.o \
 		$(RDL)moving_key.o \
 		$(PRS)/parser/pars_n_exec.o \
 		$(PRS)/parser/cmd_pars.o \
+		$(PRS)/parser/pars_err.o \
 
 
 LIB = libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:10:35 by amya              #+#    #+#             */
-/*   Updated: 2021/05/08 13:45:57 by amya             ###   ########.fr       */
+/*   Updated: 2021/05/08 16:29:34 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,10 @@ int	execution(char *str)
 
 	list = command_parser(str, list);
 	display_list(list);
+	if (!main_list_loop(list))
+	{
+		ft_putstr("parss error");
+		exit(0);
+	}
 	return 1;
 }

@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 13:11:24 by amya              #+#    #+#             */
-/*   Updated: 2021/05/02 11:02:12 by amya             ###   ########.fr       */
+/*   Updated: 2021/05/08 16:35:28 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ void	init_core(t_core *core)
 	core->real_pos = ft_strlen(core->line);
 	core->copy = NULL;
 	core->pre_cmd = ft_strlen(core->line);
+	core->opps = (char **)malloc(sizeof(char *) * 11);
+	core->opps[0] = ft_strdup(">");
+	core->opps[1] = ft_strdup("&>");
+	core->opps[2] = ft_strdup(">>");
+	core->opps[3] = ft_strdup("&>>");
+	core->opps[4] = ft_strdup("<");
+	core->opps[5] = ft_strdup("<<");
+	core->opps[6] = ft_strdup(">&");
+	core->opps[7] = ft_strdup("<&");
+	core->opps[8] = ft_strdup(">&-");
+	core->opps[9] = ft_strdup("<&-");
+	core->opps[10] = NULL;
+	g_core = core;
+
 }
 
 void	read_line_init(t_core *core, int calc_pos)
@@ -32,7 +46,6 @@ void	read_line_init(t_core *core, int calc_pos)
 	core->scroll = 0;
 	core->space_added = 0;
 	core->out_buf = 0;
-	g_core = core;
 	if (calc_pos)
 		get_cursor_position(core);
 	core->pos_v = core->curs_v;

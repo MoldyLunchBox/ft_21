@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 12:35:19 by amya              #+#    #+#             */
-/*   Updated: 2021/05/08 13:40:36 by amya             ###   ########.fr       */
+/*   Updated: 2021/05/09 11:53:13 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,25 @@ t_cmd	*add_pipe_col_node(t_cmd *head, char *line, int pipe_col)
 char	*pars_operators(char *str, int i)
 {
 	int		j;
+	int		k;
 	char	*ret;
 
 	j = i;
 	while ((str[i] && is_red(str[i])) | (str[i] && str[i] == ' '))
 		i++;
 	ret = ft_strsub(str, j, i - j);
-	red_error_check(ret);
+	k = 0;
+	j = 0;
+	while(ret[j])
+	{
+		if (ret[j] != ' ')
+		{
+			ret[k] = ret[j];
+			k++;
+		}	
+		j++;
+	}
+	ret[k] = '\0';
 	return (ret);
 }
 
@@ -79,6 +91,7 @@ t_red	*add_red_node(t_create_node_red *var, char *line, int pipe_col, int i)
 t_cmd	*create_node_pipe_col(int *start, int end, char *str, t_cmd *list)
 {
 	char	*tmp;
+	char	*del;
 	int		pipe_col;
 
 	if (str[end] == '|')
@@ -92,7 +105,12 @@ t_cmd	*create_node_pipe_col(int *start, int end, char *str, t_cmd *list)
 		end++;
 	tmp = ft_strsub(str, *start, end - *start);
 	if (tmp)
+	{
+		del = tmp;
+		tmp = ft_strtrim(tmp);
+		free(del);
 		list = add_pipe_col_node(list, tmp, pipe_col);
+	}
 	free(tmp);
 	*start = end + 1;
 	return list;

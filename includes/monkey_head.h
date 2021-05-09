@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 14:20:36 by amya              #+#    #+#             */
-/*   Updated: 2021/05/01 12:50:58 by amya             ###   ########.fr       */
+/*   Updated: 2021/05/08 16:12:33 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ enum
 	ERR_TNOTF,
 	ERR_USAGE,
 };
+
 typedef struct	s_t
 {
 	struct winsize win;
@@ -101,6 +102,7 @@ typedef	struct	s_core
 	int			out_buf;
 	int			space_added;
 	int			heredoc;
+	char		**opps;
 }				t_core;
 typedef struct	s_alt_jump_down
 {

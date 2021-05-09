@@ -6,7 +6,7 @@
 /*   By: amya <amya@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 13:26:13 by amya              #+#    #+#             */
-/*   Updated: 2021/05/08 12:40:16 by amya             ###   ########.fr       */
+/*   Updated: 2021/05/09 12:21:44 by amya             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int		main(int ac, char **ar, char **env)
 	// 	unconfigure_term();
 	// 	while (check_quotes(line))
 	// 		do_quotes(&line, &core);
-		execution("one | two.4- & > two.6| and  >>   4 not");
+		execution("one | two.4- & > two.6| and  \">\">   4 454 not");
 		// if ((i = tosh(&line, &t_env, &ac, &ar)) == -1)
 		// 	continue ;
 		// else if (i == 0)
